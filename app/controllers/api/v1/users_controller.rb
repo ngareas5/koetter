@@ -3,7 +3,6 @@ class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user!
  
   def update
-  	binding.pry
     if current_user.present? && current_user.update(user_params)
       render json: {success: true, user: current_user, message: "Successfully updated user"}
     else
