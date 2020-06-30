@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-	#skip_before_action :verify_authenticity_token
+	skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
  
   def update
@@ -9,10 +9,7 @@ class Api::V1::UsersController < ApplicationController
       #render json: {success: false, user: current_user, message: current_user.errors.full_messages.to_sentence}
       render json: {success: false, message:"somthing went wrong"}
     end
-  
-  # def destroy 
-
-  # end 
+  end
 
   private
 
