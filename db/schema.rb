@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_133253) do
+ActiveRecord::Schema.define(version: 2020_07_02_112505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,31 @@ ActiveRecord::Schema.define(version: 2020_06_23_133253) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["body"], name: "index_authentication_tokens_on_body"
     t.index ["user_id"], name: "index_authentication_tokens_on_user_id"
+  end
+
+  create_table "order_histories", force: :cascade do |t|
+    t.integer "order_id"
+    t.date "order_date"
+    t.string "status"
+    t.bigint "user_id"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_order_histories_on_product_id"
+    t.index ["user_id"], name: "index_order_histories_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "model_number"
+    t.string "category"
+    t.string "dimensions"
+    t.string "style"
+    t.string "material"
+    t.string "other"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

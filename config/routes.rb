@@ -4,9 +4,12 @@ Rails.application.routes.draw do
   namespace :api , defaults: {format: 'json'} do
     namespace :v1 do
     	resource :users, only: [] do
-    		put 'update/:id' => 'users#update'
+    	   put 'update/:id' => 'users#update'
+         post 'forgot_password'
+         post 'reset_password'
       end
-
+        resources :products
+        resources :order_histories
     end  	
   end
 end
