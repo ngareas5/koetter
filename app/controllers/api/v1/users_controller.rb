@@ -2,12 +2,21 @@ class Api::V1::UsersController < ApplicationController
 	#skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, except: [:forgot_password,:reset_password]
  
+  def user_details
+    if current_user.present?
+      render json: {success: true,user: current_user}
+    else
+      render json: {success: false, message:"User not found"}
+    end
+  end
+
+
   def update
     if current_user.present? && current_user.update(user_params)
       render json: {success: true, user: current_user, message: "Successfully updated user"}
     else
       #render json: {success: false, user: current_user, message: current_user.errors.full_messages.to_sentence}
-      render json: {success: false, message:"somthing went wrong"}
+      render json: {success: false, message:"Somthing went wrong"}
     end
   end
   
@@ -15,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
     if current_user.present? && current_user.update(address_params)
       render json: {success: true, user: current_user, message: "Successfully added address details"}
     else
-      render json: {success: false, message:"somthing went wrong"} 
+      render json: {success: false, message:"Somthing went wrong"} 
     end
   end
 

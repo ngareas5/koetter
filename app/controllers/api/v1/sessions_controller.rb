@@ -13,7 +13,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
 
     def destroy
-      if current_user
+      if current_user.present?
         Tiddle.expire_token(current_user, request) 
         render json: {success: true, status: 200, message: "Successfully Signed Out"}
       else
