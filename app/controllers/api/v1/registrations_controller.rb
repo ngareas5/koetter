@@ -21,7 +21,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   protected
 
     def configure_permitted_parameters
-       param_keys = [:email, :password, :username]
+       param_keys = [:email, :password, :username, :business_address_line_1, :business_address_line_2, :city, :zip_code, :state,:telephone, :fax]
        devise_parameter_sanitizer.permit(:sign_up, keys: param_keys)
     end
     def resource_name

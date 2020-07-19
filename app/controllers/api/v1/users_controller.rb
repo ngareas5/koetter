@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-	skip_before_action :verify_authenticity_token
+	#skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, except: [:forgot_password,:reset_password]
  
   def update
@@ -11,6 +11,13 @@ class Api::V1::UsersController < ApplicationController
     end
   end
   
+  def add_address_details
+    if current_user.present? && current_user.update(address_params)
+      render json: {success: true, user: current_user, message: "Successfully added address details"}
+    else
+      render json: {success: false, message:"somthing went wrong"} 
+    end
+  end
 
   def forgot_password
     user = User.find_by_email(params[:user][:email])
@@ -37,12 +44,17 @@ class Api::V1::UsersController < ApplicationController
         render json: {error: user.errors.full_messages}, status: :unprocessable_entity
       end
     end
-
   end
   
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :username)
+    params.require(:user).permit(:email, :password, :username, :business_address_line_1, :business_address_line_2, :city, :zip_code, :state, :fax)
   end
+  
+  def address_params
+    params.require(:user).permit(:business_address_line_1, :business_address_line_2, :city, :zip_code, :state,:telephone, :fax)
+  end
+
 end
+
