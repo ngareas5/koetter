@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   has_many :authentication_tokens, dependent: :destroy
   has_many :products
-  has_many :order_histories
+  has_many :projects
+
 
  def generate_password_token!
   self.reset_password_token = generate_token

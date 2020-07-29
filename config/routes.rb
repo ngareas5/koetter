@@ -12,8 +12,12 @@ Rails.application.routes.draw do
          post 'add_address_details'
          get  'user_details'
       end
-        resources :products
-        resources :orders
+      resources :products do
+        collection do
+          post 'search_product'
+        end
+      end
+     resources :projects
     end  	
   end
 end
