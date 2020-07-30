@@ -13,11 +13,14 @@ Rails.application.routes.draw do
          get  'user_details'
       end
       resources :products do
+        post 'add_to_project'
         collection do
           post 'search_product'
         end
       end
-     resources :projects
+      resources :projects do
+        delete 'delete_all_added_products'
+      end
     end  	
   end
 end

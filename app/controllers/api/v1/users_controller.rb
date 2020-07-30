@@ -4,27 +4,26 @@ class Api::V1::UsersController < ApplicationController
  
   def user_details
     if current_user.present?
-      render json: {success: true,user: current_user}
+      render_object(current_user, 'current_user', "User details")
     else
-      render json: {success: false, message:"User not found"}
+      render_error("User not found")
     end
   end
 
 
   def update
     if current_user.present? && current_user.update(user_params)
-      render json: {success: true, user: current_user, message: "Successfully updated user"}
+      render_object(current_user, 'current_user', "Successfully updated user")
     else
-      #render json: {success: false, user: current_user, message: current_user.errors.full_messages.to_sentence}
-      render json: {success: false, message:"Somthing went wrong"}
+      render_error("Somthing went wrong")
     end
   end
   
   def add_address_details
     if current_user.present? && current_user.update(address_params)
-      render json: {success: true, user: current_user, message: "Successfully added address details"}
-    else
-      render json: {success: false, message:"Somthing went wrong"} 
+      render_object(current_user, 'current_user', "Successfully added address details")
+    else 
+      render_error("Somthing went wrong")
     end
   end
 
