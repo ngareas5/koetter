@@ -21,6 +21,13 @@ Rails.application.routes.draw do
       resources :projects do
         delete 'delete_all_added_products'
       end
+      resources :add_projects do
+        collection do
+          put 'increge'
+          put 'decrease'
+          delete 'remove_product'
+        end
+      end
     end  	
   end
 end

@@ -1,5 +1,5 @@
 class AddProjectSerializer < ActiveModel::Serializer
-  attributes :id, :product
+  attributes :id, :product, :quantity
 
   def product
   	object.product
